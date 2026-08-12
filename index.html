@@ -3,18 +3,442 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Für dich ❤️</title>
+
+    <title>CLASSIFIED</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #050505;
+            color: #f5f5f5;
+            font-family: Inter, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Hintergrund */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+
+            background:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 100% 4px;
+            opacity: 0.25;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .screen {
+            width: 100%;
+            max-width: 700px;
+        }
+
+        /* Intro */
+
+        #intro {
+            text-align: center;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .system {
+            font-family: "Space Mono", monospace;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: #777;
+            margin-bottom: 35px;
+        }
+
+        .loading {
+            width: 100%;
+            max-width: 300px;
+            height: 2px;
+            background: #222;
+            margin: 25px auto;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            width: 0%;
+            height: 100%;
+            background: white;
+            animation: loading 3s forwards;
+        }
+
+        /* Hauptseite */
+
+        #main {
+            display: none;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .classification {
+            font-family: "Space Mono", monospace;
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .title {
+            font-size: clamp(48px, 12vw, 90px);
+            line-height: 0.9;
+            font-weight: 700;
+            letter-spacing: -5px;
+            margin-bottom: 30px;
+        }
+
+        .title span {
+            display: inline-block;
+            animation: glitch 4s infinite;
+        }
+
+        .line {
+            width: 60px;
+            height: 2px;
+            background: #fff;
+            margin-bottom: 30px;
+        }
+
+        .intro-text {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #aaa;
+            max-width: 550px;
+            margin-bottom: 45px;
+        }
+
+        .intro-text strong {
+            color: white;
+        }
+
+        /* Info */
+
+        .info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+            margin-bottom: 45px;
+        }
+
+        .info-box {
+            padding: 20px 10px;
+            border-right: 1px solid #222;
+        }
+
+        .info-box:last-child {
+            border-right: none;
+        }
+
+        .info-label {
+            font-family: "Space Mono", monospace;
+            font-size: 9px;
+            color: #666;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-family: "Space Mono", monospace;
+            font-size: 12px;
+        }
+
+        /* Button */
+
+        .start-button {
+            width: 100%;
+            padding: 20px;
+            background: white;
+            color: black;
+            border: none;
+            font-family: "Space Mono", monospace;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .start-button:hover {
+            background: #ddd;
+            transform: translateY(-2px);
+        }
+
+        .warning {
+            text-align: center;
+            margin-top: 18px;
+            font-family: "Space Mono", monospace;
+            font-size: 9px;
+            color: #444;
+            letter-spacing: 1px;
+        }
+
+        /* Animationen */
+
+        @keyframes loading {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% {
+                transform: translate(0);
+            }
+
+            92% {
+                transform: translate(-3px, 2px);
+            }
+
+            94% {
+                transform: translate(3px, -2px);
+            }
+
+            96% {
+                transform: translate(-2px, 0);
+            }
+        }
+
+        /* Handy */
+
+        @media (max-width: 600px) {
+
+            .container {
+                padding: 20px;
+            }
+
+            .title {
+                font-size: 55px;
+            }
+
+            .intro-text {
+                font-size: 16px;
+            }
+
+            .info-box {
+                padding: 15px 5px;
+            }
+
+            .info-value {
+                font-size: 10px;
+            }
+        }
+
+    </style>
 </head>
 
 <body>
 
-    <h1>Hey du ❤️</h1>
+<div class="container">
 
-    <p>Du hast etwas gefunden...</p>
+    <div class="screen">
 
-    <button onclick="location.href='raetsel.html'">
-        Entdecke dein Geschenk
-    </button>
+        <!-- INTRO -->
+
+        <div id="intro">
+
+            <div class="system">
+                INITIALIZING...
+            </div>
+
+            <div class="loading">
+                <div class="loading-bar"></div>
+            </div>
+
+            <div class="system" id="status">
+                CONNECTING
+            </div>
+
+        </div>
+
+
+        <!-- HAUPTSEITE -->
+
+        <div id="main">
+
+            <div class="classification">
+                CLASSIFIED // PERSONAL ACCESS
+            </div>
+
+            <div class="title">
+                <span>DU BIST<br>HIER.</span>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="intro-text">
+
+                Und wenn du diese Seite siehst,
+                war das <strong>kein Zufall.</strong>
+
+                <br><br>
+
+                Ab heute beginnt eine kleine Mission.
+
+                <br><br>
+
+                <strong>
+                    5 Tage. 5 Rätsel. 1 Finale.
+                </strong>
+
+                <br><br>
+
+                Die Lösung jedes Tages führt dich
+                einen Schritt weiter.
+
+            </div>
+
+
+            <div class="info">
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        SUBJECT
+                    </div>
+
+                    <div class="info-value">
+                        YOU
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        ACCESS
+                    </div>
+
+                    <div class="info-value">
+                        01 / 05
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        STATUS
+                    </div>
+
+                    <div class="info-value">
+                        ACTIVE
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="start-button"
+                onclick="startMission()">
+
+                [ DAY 01 — ENTER ]
+
+            </button>
+
+
+            <div class="warning">
+
+                THERE IS NO TURNING BACK.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const statusMessages = [
+        "CONNECTING",
+        "CONNECTION SECURE",
+        "IDENTITY VERIFIED",
+        "ACCESS PROTOCOL READY"
+    ];
+
+    let index = 0;
+
+    const status = document.getElementById("status");
+
+    const interval = setInterval(() => {
+
+        if (index < statusMessages.length) {
+
+            status.textContent = statusMessages[index];
+
+            index++;
+
+        } else {
+
+            clearInterval(interval);
+
+        }
+
+    }, 700);
+
+
+    setTimeout(() => {
+
+        document.getElementById("intro").style.display = "none";
+
+        document.getElementById("main").style.display = "block";
+
+    }, 3500);
+
+
+    function startMission() {
+
+        // Später kommt hier deine erste Rätselseite hin.
+
+        window.location.href = "tag1.html";
+
+    }
+
+</script>
 
 </body>
 </html>
